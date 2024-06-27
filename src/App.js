@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Grommet, Page, PageContent, PageHeader, Grid } from 'grommet';
+import { lightTheme, darkTheme } from './Theme';
+import useDarkMode from './useDarkMode';
+import AppBar from './AppBar';
+import CardTemplate from './CardTemplate';
 
-function App() {
+const App = () => {
+  const [dark, toggleDarkMode] = useDarkMode();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grommet theme={dark ? darkTheme : lightTheme} full>
+      <Page>
+        <AppBar dark={dark} toggleDarkMode={toggleDarkMode} />
+        <PageContent>
+          <PageHeader title="Welcome to Grommet!" />
+          <Grid columns="medium" gap="large" pad={{ bottom: 'large' }}>
+            <CardTemplate title={"Card 1"} />
+            <CardTemplate title={"Card 2"} />
+            <CardTemplate title={"Card 3"} />
+          </Grid>
+        </PageContent>
+      </Page>
+    </Grommet>
   );
-}
+};
 
 export default App;
